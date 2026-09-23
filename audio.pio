@@ -1,0 +1,32 @@
+.program audio
+.side_set 2
+
+; DATA PIN IS  16
+; CLOCK PIN IS 17
+; LRC PIN IS   18
+
+; note: need to shift out data when clock is low, not high
+; always connect dac to VBUS or VSYS, never 3v3 out. not enough current
+; also keep it separate from the microsd.
+
+public entry_point:
+    set x, 14  side 0b01 ; start with clock high, lrc low
+    jmp loop1  side 0b01
+
+.wrap_target
+loop1:
+    ; toggle clock pin on and off whilst sending data
+    out pins, 1    side 0b00 ; left  channel, clock off
+    jmp x-- loop1  side 0b01 ; left  channel, clock on
+
+    out pins, 1    side 0b10 ; right channel, clock off
+    set x, 14      side 0b11 ; right channel, clock on
+
+loop2:
+    ; toggle clock pin on and off whilst sending data
+    out pins, 1    side 0b10 ; right channel, clock off
+    jmp x-- loop2  side 0b11 ; right channel, clock on
+
+    out pins, 1    side 0b00 ; left  channel, clock off
+    set x, 14      side 0b01 ; left  channel, clock on
+.wrap

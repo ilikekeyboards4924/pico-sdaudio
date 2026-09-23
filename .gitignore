@@ -1,0 +1,4 @@
+build
+!.vscode/*
+pico-vfs
+pico_sdk_import.cmake
