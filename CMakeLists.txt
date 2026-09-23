@@ -44,18 +44,18 @@ add_subdirectory(pico-vfs)
 pico_enable_filesystem(sdaudio FS_INIT ${CMAKE_CURRENT_LIST_DIR}/fs_init.c)
 
 target_link_libraries(sdaudio
-        pico_stdlib
-        pico_multicore
-        hardware_pio
-        hardware_clocks
-        hardware_dma
-        blockdevice_sd
-        filesystem_fat
-        filesystem_vfs
+    pico_stdlib
+    pico_multicore
+    hardware_pio
+    hardware_clocks
+    hardware_dma
+    blockdevice_sd
+    filesystem_fat
+    filesystem_vfs
 )
 
 target_include_directories(sdaudio PRIVATE
-        ${CMAKE_CURRENT_LIST_DIR}
+    ${CMAKE_CURRENT_LIST_DIR}
 )
 
 pico_add_extra_outputs(sdaudio)
